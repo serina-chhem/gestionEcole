@@ -14,6 +14,7 @@ CREATE TABLE trimestre(
 CREATE TABLE niveau(
 	id int primary key auto_increment,
 	nom varchar(255) not null
+);
 
 CREATE TABLE classe(
 	id int primary key auto_increment,
