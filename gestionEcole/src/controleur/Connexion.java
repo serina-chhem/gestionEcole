@@ -26,7 +26,7 @@ public class Connexion {
      * requete
      */
     private Connection conn;
-    private Statement stmt;
+    public Statement stmt;
     private ResultSet rset;
     private ResultSetMetaData rsetMeta;
     /**
@@ -56,7 +56,7 @@ public class Connexion {
         Class.forName("com.mysql.jdbc.Driver");
 
         // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
-        String urlDatabase = "jdbc:mysql://localhost/" + nameDatabase;
+        String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
 
         //création d'une connexion JDBC à la base 
         conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
