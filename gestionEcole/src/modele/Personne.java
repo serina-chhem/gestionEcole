@@ -5,6 +5,10 @@
  */
 package modele;
 
+import controleur.Connexion;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  *
  * @author serina
@@ -25,6 +29,11 @@ public class Personne {
     public Personne (){
         
     }
+    
+    public Personne(int id){
+        this.id = id;
+    }
+   
     
     public int getId(){
         return id;
@@ -52,5 +61,14 @@ public class Personne {
     }
     public void setPrenom(String prenom){
         this.prenom = prenom;
+    }
+    
+     @Override
+    public boolean equals(Object obj) {
+        return 
+                (
+                this.nom.equals( ( (Personne) obj).nom) && 
+                (this.prenom.equals( ( (Personne) obj).prenom) ) 
+                );
     }
 }
