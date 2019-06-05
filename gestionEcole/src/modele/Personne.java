@@ -5,7 +5,6 @@
  */
 package modele;
 
-import controleur.Connexion;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -63,12 +62,5 @@ public class Personne {
         this.prenom = prenom;
     }
     
-     @Override
-    public boolean equals(Object obj) {
-        return 
-                (
-                this.nom.equals( ( (Personne) obj).nom) && 
-                (this.prenom.equals( ( (Personne) obj).prenom) ) 
-                );
-    }
+   
 }

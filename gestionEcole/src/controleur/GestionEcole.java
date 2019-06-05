@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestionecole;
+package controleur;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
-import controleur.Connexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -42,8 +40,13 @@ public class GestionEcole {
           String nameDatabase = "ecole";
           String loginDatabase = "root";
           String passwordDatabase = "root";
+          
          ArrayList<Personne> Eleves = new ArrayList<>();
          ArrayList<Personne> Profs = new ArrayList<>();
+         ArrayList<anneeScolaire> Annees = new ArrayList<>();
+         ArrayList<Trimestre> Trimestres = new ArrayList<>();
+
+         
  
       try{
           
@@ -60,6 +63,35 @@ public class GestionEcole {
         // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
         
+     
+        
+        rset = stmt.executeQuery("select * from anneeScolaire"  );
+        while (rset.next())
+        {   
+            anneeScolaire a = new anneeScolaire();
+            a.setId(rset.getInt("id"));    
+            Annees.add(a);
+        }
+        System.out.println("Taille du tableau d'années : " + Annees.size());
+
+        rset = stmt.executeQuery("select * from trimestre");
+        while (rset.next())
+        {
+            anneeScolaire anneeScolaire_id = new anneeScolaire();
+            Trimestre t = new Trimestre();
+            t.setId(rset.getInt("id"));
+            t.setAnneeScolaireId(anneeScolaire_id);
+            t.setDebutDate(rset.getDate("debut"));
+            t.setFinDate(rset.getDate("fin"));
+            t.setNumero(rset.getInt("numero"));
+            Trimestres.add(t);
+        }
+//        System.out.println("Taille du tableau des trimestres : " + Trimestres.size());
+//        Trimestres.forEach(tri ->{
+//               System.out.println( " \n Trimestre annee : " + tri.getAnneeScolaireId());
+//        });
+
+
         
                   rset = stmt.executeQuery("select * from personne where type = 1"  );
                   while (rset.next()){   
@@ -71,7 +103,7 @@ public class GestionEcole {
                         Eleves.add(e);
                     }
                     Eleves.forEach(per -> {
-                         System.out.println("Nom : " + per.getNom() + " \n Id : " + per.getId());
+                         System.out.println("\n Nom : " + per.getNom() + " \n Id : " + per.getId());
                     });
                     
                     
@@ -128,7 +160,7 @@ public class GestionEcole {
               
             
         // récupération de l'ordre de la requete
-        rset = stmt.executeQuery("select prenom from personne where type = 3 and id = " + "\"" + id + "\""  );
+    rset = stmt.executeQuery("select prenom from personne where type = 3 and id = " + "\"" + id + "\""  );
 
         // récupération du résultat de l'ordre
         //rsetMeta = rset.getMetaData();              
@@ -222,9 +254,13 @@ public class GestionEcole {
                         stmt.executeUpdate("UPDATE personne SET nom = " + "\"" +newNom + "\"" + "WHERE type = 1 AND id = " + "\"" + id + "\"" );
                         System.out.println("Nom de l'élève modifié ");
                         
-                        Personne e1 = Eleves.get(id);
-                        e1.setNom(newNom);
-                        
+                      
+                        for (Personne p2 : Eleves) {
+                            if (p2.getId() == id) {
+                                p2.setNom(newNom);
+                                break;
+                            }
+                        }
                         
                         break;
                     case 2 :
@@ -232,11 +268,15 @@ public class GestionEcole {
                         id = sc.nextInt();
                         System.out.println("Nouveau prénom de l'élève : ");
                         newPrenom = sc.next();
-                        stmt.executeUpdate("UPDATE personne SET nom = " + "\"" +newPrenom + "\"" + "WHERE type = 1 AND id = " + "\"" + id + "\"" );
+                        stmt.executeUpdate("UPDATE personne SET prenom = " + "\"" +newPrenom + "\"" + "WHERE type = 1 AND id = " + "\"" + id + "\"" );
                         System.out.println("Prénom de l'élève modifié");
-                       
-                        Personne e = Eleves.get(id);
-                        e.setPrenom(newPrenom);
+
+                        for (Personne p2 : Eleves) {
+                            if (p2.getId() == id) {
+                                p2.setPrenom(newPrenom);
+                                break;
+                            }
+                        }
                         
                         break;
                         
@@ -297,7 +337,12 @@ public class GestionEcole {
                         id = sc.nextInt();
                         System.out.println("Nouveau nom du prof : ");
                         newNom = sc.next();
-                        
+                        for (Personne p3 : Profs) {
+                            if (p3.getId() == id) {
+                                p3.setNom(newNom);
+                                break;
+                            }
+                        }
                         stmt.executeUpdate("UPDATE personne SET nom = " + "\"" +newNom + "\"" + "WHERE type = 2 AND id = " + "\"" + id + "\"" );
                         System.out.println("Nom du prof  modifié ");
                         
@@ -307,7 +352,13 @@ public class GestionEcole {
                         id = sc.nextInt();
                         System.out.println("Nouveau prénom du prof : ");
                         newPrenom = sc.next();
-                        stmt.executeUpdate("UPDATE personne SET nom = " + "\"" +newPrenom + "\"" + "WHERE type = 2 AND id = " + "\"" + id + "\"" );
+                        for (Personne p3 : Profs) {
+                            if (p3.getId() == id) {
+                                p3.setPrenom(newPrenom);
+                                break;
+                            }
+                        }
+                        stmt.executeUpdate("UPDATE personne SET prenom = " + "\"" +newPrenom + "\"" + "WHERE type = 2 AND id = " + "\"" + id + "\"" );
                         System.out.println("Prénom du prof  modifié");
                         break;
                         

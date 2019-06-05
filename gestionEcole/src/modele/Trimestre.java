@@ -5,6 +5,7 @@
  */
 package modele;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -24,6 +25,10 @@ public class Trimestre {
         this.dateDebut = debut;
         this.dateFin = fin;
         this.anneeId = anneeId.getId();
+    }
+    
+    public Trimestre(){
+        
     }
     
     public int getId(){
@@ -62,4 +67,6 @@ public class Trimestre {
   public void setAnneeScolaireId(anneeScolaire anneeId){
       this.anneeId = anneeId.getId();
   }
+   
+  
 }
