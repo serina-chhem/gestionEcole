@@ -33,6 +33,7 @@ public class GestionEcole {
         String newNom ;
         String newPrenom ;
         int choixModif;
+        
           Statement stmt;
           Connection conn;
           ResultSet rset;
@@ -92,100 +93,80 @@ public class GestionEcole {
 //        });
 
 
-        
-                  rset = stmt.executeQuery("select * from personne where type = 1"  );
-                  while (rset.next()){   
-                        Personne e = new Personne();
-                        e.setId(rset.getInt("id"));
-                        e.setNom(rset.getString("nom"));
-                        e.setType(rset.getInt("type"));
-                        e.setPrenom(rset.getString("prenom"));
-                        Eleves.add(e);
-                    }
-                    Eleves.forEach(per -> {
-                         System.out.println("\n Nom : " + per.getNom() + " \n Id : " + per.getId());
-                    });
-                    
-                    
-                    System.out.println("Taille du tableau d'élèves : " + Eleves.size());
-                    
-         rset = stmt.executeQuery("select * from personne where type = 2"  );
-                  while (rset.next()){   
-                        Personne p = new Personne();
-                        p.setId(rset.getInt("id"));
-                        p.setNom(rset.getString("nom"));
-                        p.setType(rset.getInt("type"));
-                        p.setPrenom(rset.getString("prenom"));
-                        Profs.add(p);
-                    }
-                    Profs.forEach(per -> {
-                         System.out.println("Nom : " + per.getNom() + " \n Id : " + per.getId());
-                    });
-                    
-                    
-                    System.out.println("Taille du tableau des profs : " + Profs.size());
-                    
-        
-        
-        
-        
-        System.out.println("Se connecter en tant que :");
-        int type = 0;
-     
-        System.out.println("1. Eleve ");
-        System.out.println("2. Prof");
-        System.out.println("3. Admin/Direction");
 
-        System.out.println("0. Quitter");
+          rset = stmt.executeQuery("select * from personne where type = 1"  );
+          while (rset.next()){   
+                Personne e = new Personne();
+                e.setId(rset.getInt("id"));
+                e.setNom(rset.getString("nom"));
+                e.setType(rset.getInt("type"));
+                e.setPrenom(rset.getString("prenom"));
+                Eleves.add(e);
+            }
+            Eleves.forEach(per -> {
+                 System.out.println("\n Nom : " + per.getNom() + " \n Id : " + per.getId());
+            });
+
+
+            System.out.println("Taille du tableau d'élèves : " + Eleves.size());
+
+            rset = stmt.executeQuery("select * from personne where type = 2"  );
+            while (rset.next()){   
+                Personne p = new Personne();
+                p.setId(rset.getInt("id"));
+                p.setNom(rset.getString("nom"));
+                p.setType(rset.getInt("type"));
+                p.setPrenom(rset.getString("prenom"));
+                Profs.add(p);
+            }
+            Profs.forEach(per -> {
+                 System.out.println("Nom : " + per.getNom() + " \n Id : " + per.getId());
+            });
+
+
+            System.out.println("Taille du tableau des profs : " + Profs.size());
+
+        
+        
+        
+        
+        System.out.println("CONNEXION ADMIN :");
+       
 
         Scanner sc = new Scanner(System.in);
-       System.out.println("Faites votre choix :");
-        type = sc.nextInt();
-        switch (type) {
-                case 1: 
-                    //eleve entre ses identifiants (nom et prenom) pour se connecter, s'inscrire a un cours, visualiser ses notes etc
-                   
-                    
-                    break;
-                case 2: 
-                    //prof peut choisir sa discipline, mettre des notes a un eleve et remplir son bulletin
-           
-              break;
-                case 3 :
-                    
-                    int choixAdmin = 0;
-                    int id ;
-                    System.out.println("admin, quel est ton id : ");
-                    id = sc.nextInt();
+    
+
+        int choixAdmin = 0;
+        int id ;
+        System.out.println("admin, quel est ton id : ");
+        id = sc.nextInt();
               
             
         // récupération de l'ordre de la requete
-    rset = stmt.executeQuery("select prenom from personne where type = 3 and id = " + "\"" + id + "\""  );
+        rset = stmt.executeQuery("select prenom from personne where type = 3 and id = " + "\"" + id + "\""  );
 
         // récupération du résultat de l'ordre
         //rsetMeta = rset.getMetaData();              
-              while (rset.next()){
-                  prenom = rset.getString("prenom");
-                  System.out.println("Bonjour " + prenom);
-                  
-                  System.out.println("Connexion réussie!!! ");
-                  
-              }
-                   System.out.println("Admin, que veux tu faire maintenant ");
-                       
-        System.out.println("1. Inscrire un nouvel élève ");
-        System.out.println("2. Supprimer un élève");
-        System.out.println("3. Modifier les infos d'un élève");
-        
-        System.out.println("4. Inscrire un nouveau prof ");
-        System.out.println("5. Supprimer un prof");
-        System.out.println("6. Modifier les infos d'un prof");
+        while (rset.next()){
+            prenom = rset.getString("prenom");
+            System.out.println("Bonjour " + prenom);
 
-        System.out.println("0. Quitter");
-        System.out.println("Choisis stp");
+            System.out.println("Connexion réussie!!! ");
+            System.out.println("Admin, que veux tu faire maintenant ");
 
-        
-        choixAdmin = sc.nextInt();
+            System.out.println("1. Inscrire un nouvel élève ");
+            System.out.println("2. Supprimer un élève");
+            System.out.println("3. Modifier les infos d'un élève");
+
+            System.out.println("4. Inscrire un nouveau prof ");
+            System.out.println("5. Supprimer un prof");
+            System.out.println("6. Modifier les infos d'un prof");
+
+            System.out.println("0. Quitter");
+            System.out.println("Choisis stp");
+
+
+            choixAdmin = sc.nextInt();
 
         switch(choixAdmin){
             case 1 :
@@ -195,19 +176,26 @@ public class GestionEcole {
               nom = sc.next();
               System.out.println("Inscrire le prénom de l'élève :  ");
                 prenom = sc.next();
-                 stmt.executeUpdate("INSERT INTO personne(nom, prenom, type) VALUES ( "  + "\"" +nom + "\"" + ", " + "\""  + prenom  + "\"" + ", " + "\"" + 1 + "\"" +" ); ");
-           
-                        Personne p1 = new Personne();
+                  stmt.executeUpdate("INSERT INTO personne(nom, prenom, type) VALUES ( "  + "\"" +nom + "\"" + ", " + "\""  + prenom  + "\"" + ", " + "\"" + 1 + "\"" +" ); ");
+                  
+                  rset = stmt.executeQuery("SELECT * From personne where type = 1 and nom = " + "\"" +nom + "\"");
+                 
+                 while(rset.next()){
+                        Personne p1 = new Personne(rset.getInt("id"), 1, nom, prenom);
               
                         Eleves.add(p1);
              
-                    
-                    System.out.println("Taille du tableau d'élèves : " + Eleves.size());
-                    
-              
                     System.out.println("Inscription réussie!!! ");
-               
-               
+                 
+                 }
+                 
+                  System.out.println("Nouvelle liste \n ");
+                 Eleves.forEach(per -> {
+                         
+  
+                         System.out.println("\n Nom : " + per.getNom() + " \n Id : " + per.getId());
+                    });
+                    
 
                 break;
                 
@@ -289,14 +277,29 @@ public class GestionEcole {
             case 4 :
                   System.out.println("INSCRIPTION D'UN NOUVEAU PROF ");
 
-                 System.out.println("Inscrire le nom du prof : ");
-              nom = sc.next();
-              System.out.println("Inscrire le prénom du prof : ");
+                System.out.println("Inscrire le nom du prof : ");
+                nom = sc.next();
+                System.out.println("Inscrire le prénom du prof : ");
                 prenom = sc.next();
-                   stmt.executeUpdate("INSERT INTO personne(nom, prenom, type) VALUES ( "  + "\"" +nom + "\"" + ", " + "\""  + prenom  + "\"" + ", " + "\"" + 2 + "\"" +" ); ");
+                stmt.executeUpdate("INSERT INTO personne(nom, prenom, type) VALUES ( "  + "\"" +nom + "\"" + ", " + "\""  + prenom  + "\"" + ", " + "\"" + 2 + "\"" +" ); ");
+                rset = stmt.executeQuery("SELECT * From personne where type = 2 and nom = " + "\"" +nom + "\"");
 
-               Personne prof = new Personne();
-                Profs.add(prof);
+                 while(rset.next()){
+                        Personne p1 = new Personne(rset.getInt("id"), 2, nom, prenom);
+              
+                        Profs.add(p1);
+             
+                    System.out.println("Inscription réussie!!! ");
+                 
+                 }
+                 
+                  System.out.println("Nouvelle liste \n ");
+                 Profs.forEach(per -> {
+                         
+  
+                         System.out.println("\n Nom : " + per.getNom() + " \n Id : " + per.getId());
+                    });
+                    
                System.out.println("Inscription réussie!!! ");
                 break; 
             case 5 :
@@ -372,21 +375,11 @@ public class GestionEcole {
             default :
                System.out.println("Admin, t'as fais un choix bizarre");
 
-            
+      }
+
         }
-                   break;
-                    
-                case 0:
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Erreur de choix");
-            }
-                
-                
-                
-                
-            //    stmt.close();
+        
+       
       }
       catch(SQLException q){
        

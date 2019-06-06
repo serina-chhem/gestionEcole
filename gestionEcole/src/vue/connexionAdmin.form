@@ -23,22 +23,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton2" min="-2" pref="123" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="123" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="boutonEnseignants" min="-2" pref="123" max="-2" attributes="0"/>
+                  <Component id="boutonDiscipline" min="-2" pref="123" max="-2" attributes="0"/>
+                  <Component id="boutonEleves" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="118" max="32767" attributes="0"/>
+              <EmptySpace pref="113" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,11 +41,11 @@
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="boutonEleves" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="boutonEnseignants" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="boutonDiscipline" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -61,23 +54,29 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Choisissez Votre cat&#xe9;gorie"/>
+        <Property name="text" type="java.lang.String" value="Que voulez-vous g&#xe9;rer ?"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="boutonDiscipline">
       <Properties>
         <Property name="text" type="java.lang.String" value="Discipline"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="boutonEnseignants">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enseignants"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boutonEnseignantsActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="boutonEleves">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eleves"/>
+        <Property name="text" type="java.lang.String" value="&#xc9;l&#xe8;ves"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boutonElevesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
