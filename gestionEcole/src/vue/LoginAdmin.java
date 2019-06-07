@@ -48,6 +48,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         champsId = new javax.swing.JTextField();
         champsNom = new javax.swing.JTextField();
         boutonValider = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,14 +56,11 @@ public class LoginAdmin extends javax.swing.JFrame {
 
         nom.setText("Nom :");
 
-        champsId.setText("Entrez votre id");
         champsId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 champsIdActionPerformed(evt);
             }
         });
-
-        champsNom.setText("Entrez votre nom");
 
         boutonValider.setText("Se connecter");
         boutonValider.addActionListener(new java.awt.event.ActionListener() {
@@ -71,43 +69,48 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("CONNEXION ADMIN");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(190, 190, 190)
+                            .addComponent(boutonValider))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(154, 154, 154)
+                            .addComponent(nom)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 112, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(identifiant)
-                                .addGap(18, 18, 18))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nom)
-                                .addGap(53, 53, 53)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(champsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(boutonValider)))
-                .addGap(80, 80, 80))
+                        .addGap(139, 139, 139)
+                        .addComponent(identifiant)
+                        .addGap(26, 26, 26)
+                        .addComponent(champsId, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(identifiant)
                     .addComponent(champsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nom)
                     .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(42, 42, 42)
                 .addComponent(boutonValider)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,6 +201,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField champsId;
     private javax.swing.JTextField champsNom;
     private javax.swing.JLabel identifiant;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nom;
     // End of variables declaration//GEN-END:variables
 }

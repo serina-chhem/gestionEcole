@@ -75,7 +75,6 @@
         <Property name="text" type="java.lang.String" value="&#xc9;l&#xe8;ves"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boutonElevesActionPerformed"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
       </Events>
     </Component>

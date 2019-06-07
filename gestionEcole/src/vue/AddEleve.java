@@ -143,7 +143,6 @@ public class AddEleve extends javax.swing.JFrame {
     private void bouttonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouttonValiderActionPerformed
 
         // TODO add your handling code here:
-        
         try{
          Class.forName("com.mysql.jdbc.Driver");
 
@@ -164,7 +163,7 @@ public class AddEleve extends javax.swing.JFrame {
         pst.setString(2, champsPrenom.getText());
        
         pst.executeUpdate();
-        listeEleve liste = new listeEleve();
+        gestionEleve liste = new gestionEleve();
         ArrayList<Personne> tabEleves = liste.personneList();
 
         liste.setVisible(true);
@@ -180,7 +179,6 @@ public class AddEleve extends javax.swing.JFrame {
      catch (Exception ex) {
          JOptionPane.showMessageDialog(null, ex);
      }
-     
         
         
     }//GEN-LAST:event_bouttonValiderActionPerformed

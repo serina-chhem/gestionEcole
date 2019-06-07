@@ -58,7 +58,7 @@ public class AddEnseignant extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Ajouter un nouveau prof");
+        jLabel1.setText("INSCRIPTION D'UN NOUVEAU PROF");
 
         jLabel2.setText("Ajouter Nom :");
 
@@ -96,25 +96,23 @@ public class AddEnseignant extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(bouttonValider)))
-                .addContainerGap(53, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(114, 114, 114))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,7 +122,7 @@ public class AddEnseignant extends javax.swing.JFrame {
                     .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(bouttonValider)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,7 +142,6 @@ public class AddEnseignant extends javax.swing.JFrame {
     private void bouttonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouttonValiderActionPerformed
 
         // TODO add your handling code here:
-        
         try{
          Class.forName("com.mysql.jdbc.Driver");
 
@@ -165,7 +162,7 @@ public class AddEnseignant extends javax.swing.JFrame {
         pst.setString(2, champsPrenom.getText());
        
         pst.executeUpdate();
-        listeProfs liste = new listeProfs();
+        gestionProfs liste = new gestionProfs();
         ArrayList<Personne> tabProfs = liste.personneList();
 
         liste.setVisible(true);
@@ -181,7 +178,6 @@ public class AddEnseignant extends javax.swing.JFrame {
      catch (Exception ex) {
          JOptionPane.showMessageDialog(null, ex);
      }
-     
         
         
     }//GEN-LAST:event_bouttonValiderActionPerformed

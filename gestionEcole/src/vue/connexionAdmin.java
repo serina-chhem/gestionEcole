@@ -6,6 +6,8 @@
 package vue;
 
 import controleur.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -86,14 +88,26 @@ public class connexionAdmin extends javax.swing.JFrame {
 
     private void boutonElevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonElevesActionPerformed
         // TODO add your handling code here:
-        etudiantsHomepage el = new etudiantsHomepage();
-        el.setVisible(true);
+        gestionEleve el;
+        try {
+            el = new gestionEleve();
+             el.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }//GEN-LAST:event_boutonElevesActionPerformed
 
     private void boutonEnseignantsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnseignantsActionPerformed
         // TODO add your handling code here:
-        profsHomepage prof = new profsHomepage();
-        prof.setVisible(true);
+       
+        try {
+            gestionProfs prof = new gestionProfs();
+            prof.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_boutonEnseignantsActionPerformed
 
     /**
