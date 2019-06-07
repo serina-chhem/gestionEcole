@@ -21,7 +21,7 @@ import modele.Personne;
  *
  * @author dePlanta
  */
-public class AddEleve extends javax.swing.JFrame {
+public class AddEnseignant extends javax.swing.JFrame {
     
     
     Statement stmt;
@@ -36,7 +36,7 @@ public class AddEleve extends javax.swing.JFrame {
     /**
      * Creates new form AddEleve
      */
-    public AddEleve() {
+    public AddEnseignant() {
         initComponents();
     }
 
@@ -58,7 +58,7 @@ public class AddEleve extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Ajouter Eleve");
+        jLabel1.setText("Ajouter un nouveau prof");
 
         jLabel2.setText("Ajouter Nom :");
 
@@ -90,9 +90,6 @@ public class AddEleve extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -107,13 +104,17 @@ public class AddEleve extends javax.swing.JFrame {
                         .addGap(129, 129, 129)
                         .addComponent(bouttonValider)))
                 .addContainerGap(53, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,15 +131,13 @@ public class AddEleve extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void champsNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_champsNomActionPerformed
-        // TODO add your handling code here:
-        String nom =  champsNom.getText();
+
         
     }//GEN-LAST:event_champsNomActionPerformed
 
     private void champsPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_champsPrenomActionPerformed
         // TODO add your handling code here:
-        String prenom =  champsPrenom.getText();
-        
+      
 
     }//GEN-LAST:event_champsPrenomActionPerformed
 
@@ -158,17 +157,19 @@ public class AddEleve extends javax.swing.JFrame {
         // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
         
-        String sql = "INSERT INTO personne(nom, prenom, type) VALUES (?, ?, 1)"  ;
-        
+        String sql = "INSERT INTO personne(nom, prenom, type) VALUES (?,?,2)" ;
+       
+
         pst = conn.prepareStatement(sql);
         pst.setString(1, champsNom.getText());
         pst.setString(2, champsPrenom.getText());
        
-//        
-//    
-//        listeEleve liste = new listeEleve();
-//        liste.setVisible(true);
         pst.executeUpdate();
+        listeProfs liste = new listeProfs();
+        ArrayList<Personne> tabProfs = liste.personneList();
+
+        liste.setVisible(true);
+  
         JOptionPane.showMessageDialog(null, "Inscription réussie !!");
         conn.close();
         
@@ -202,14 +203,16 @@ public class AddEleve extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEnseignant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEnseignant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEnseignant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddEnseignant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
  
@@ -220,18 +223,8 @@ public class AddEleve extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                new AddEleve().setVisible(true);
-                Personne eleve = new Personne();
-                Personne prof = new Personne();
-                ArrayList<Personne> Eleves = new ArrayList<>();
-                ArrayList<Personne> Profs = new ArrayList<>();
-                
-                
-
-
-                
-            
-                
+                new AddEnseignant().setVisible(true);
+     
             }
         });
     }

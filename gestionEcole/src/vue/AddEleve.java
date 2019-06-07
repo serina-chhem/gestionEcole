@@ -130,15 +130,13 @@ public class AddEleve extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void champsNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_champsNomActionPerformed
-        // TODO add your handling code here:
-        String nom =  champsNom.getText();
+
         
     }//GEN-LAST:event_champsNomActionPerformed
 
     private void champsPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_champsPrenomActionPerformed
         // TODO add your handling code here:
-        String prenom =  champsPrenom.getText();
-        
+      
 
     }//GEN-LAST:event_champsPrenomActionPerformed
 
@@ -158,17 +156,19 @@ public class AddEleve extends javax.swing.JFrame {
         // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
         
-        String sql = "INSERT INTO personne(nom, prenom, type) VALUES (?, ?, 1)"  ;
-        
+        String sql = "INSERT INTO personne(nom, prenom, type) VALUES (?,?,1)" ;
+       
+
         pst = conn.prepareStatement(sql);
         pst.setString(1, champsNom.getText());
         pst.setString(2, champsPrenom.getText());
        
-//        
-//    
-//        listeEleve liste = new listeEleve();
-//        liste.setVisible(true);
         pst.executeUpdate();
+        listeEleve liste = new listeEleve();
+        ArrayList<Personne> tabEleves = liste.personneList();
+
+        liste.setVisible(true);
+  
         JOptionPane.showMessageDialog(null, "Inscription réussie !!");
         conn.close();
         
@@ -221,17 +221,7 @@ public class AddEleve extends javax.swing.JFrame {
             public void run() {
                 
                 new AddEleve().setVisible(true);
-                Personne eleve = new Personne();
-                Personne prof = new Personne();
-                ArrayList<Personne> Eleves = new ArrayList<>();
-                ArrayList<Personne> Profs = new ArrayList<>();
-                
-                
-
-
-                
-            
-                
+     
             }
         });
     }

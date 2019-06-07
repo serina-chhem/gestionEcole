@@ -92,6 +92,8 @@ public class connexionAdmin extends javax.swing.JFrame {
 
     private void boutonEnseignantsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnseignantsActionPerformed
         // TODO add your handling code here:
+        profsHomepage prof = new profsHomepage();
+        prof.setVisible(true);
     }//GEN-LAST:event_boutonEnseignantsActionPerformed
 
     /**

@@ -6,14 +6,17 @@
 
 package vue;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author serina
  */
-public class etudiantsHomepage extends javax.swing.JFrame {
+public class profsHomepage extends javax.swing.JFrame {
 
     /** Creates new form etudiantsHomepage */
-    public etudiantsHomepage() {
+    public profsHomepage() {
         initComponents();
     }
 
@@ -26,19 +29,19 @@ public class etudiantsHomepage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        boutonListeEtudiant = new javax.swing.JButton();
+        boutonListeProf = new javax.swing.JButton();
         boutonInscrire = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        boutonListeEtudiant.setText("Accéder à la liste des étudiants");
-        boutonListeEtudiant.addActionListener(new java.awt.event.ActionListener() {
+        boutonListeProf.setText("Accéder à la liste des profs");
+        boutonListeProf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonListeEtudiantActionPerformed(evt);
+                boutonListeProfActionPerformed(evt);
             }
         });
 
-        boutonInscrire.setText("Inscrire un nouvel étudiant");
+        boutonInscrire.setText("Inscrire un nouveau prof");
         boutonInscrire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonInscrireActionPerformed(evt);
@@ -50,17 +53,17 @@ public class etudiantsHomepage extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(boutonInscrire)
-                    .addComponent(boutonListeEtudiant))
+                    .addComponent(boutonListeProf))
                 .addGap(72, 72, 72))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(102, 102, 102)
-                .addComponent(boutonListeEtudiant)
+                .addComponent(boutonListeProf)
                 .addGap(51, 51, 51)
                 .addComponent(boutonInscrire)
                 .addContainerGap(89, Short.MAX_VALUE))
@@ -69,16 +72,22 @@ public class etudiantsHomepage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void boutonListeEtudiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonListeEtudiantActionPerformed
+    private void boutonListeProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonListeProfActionPerformed
 
         // TODO add your handling code here:
-        listeEleve liste = new listeEleve();
-        liste.setVisible(true);
-    }//GEN-LAST:event_boutonListeEtudiantActionPerformed
+        listeProfs liste;
+        try {
+            liste = new listeProfs();
+             liste.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(profsHomepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_boutonListeProfActionPerformed
 
     private void boutonInscrireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonInscrireActionPerformed
         // TODO add your handling code here:
-        AddEleve add = new AddEleve();
+        AddEnseignant add = new AddEnseignant();
         add.setVisible(true);
     }//GEN-LAST:event_boutonInscrireActionPerformed
 
@@ -99,27 +108,28 @@ public class etudiantsHomepage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(etudiantsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(profsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(etudiantsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(profsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(etudiantsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(profsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(etudiantsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(profsHomepage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new etudiantsHomepage().setVisible(true);
+                new profsHomepage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boutonInscrire;
-    private javax.swing.JButton boutonListeEtudiant;
+    private javax.swing.JButton boutonListeProf;
     // End of variables declaration//GEN-END:variables
 
 }

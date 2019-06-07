@@ -24,10 +24,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="88" max="32767" attributes="0"/>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="boutonInscrire" min="-2" max="-2" attributes="0"/>
-                  <Component id="boutonListeEtudiant" min="-2" max="-2" attributes="0"/>
+                  <Component id="boutonListeProf" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
           </Group>
@@ -37,7 +37,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-              <Component id="boutonListeEtudiant" min="-2" max="-2" attributes="0"/>
+              <Component id="boutonListeProf" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
               <Component id="boutonInscrire" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="89" max="32767" attributes="0"/>
@@ -46,17 +46,17 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="boutonListeEtudiant">
+    <Component class="javax.swing.JButton" name="boutonListeProf">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Acc&#xe9;der &#xe0; la liste des &#xe9;tudiants"/>
+        <Property name="text" type="java.lang.String" value="Acc&#xe9;der &#xe0; la liste des profs"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boutonListeEtudiantActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boutonListeProfActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="boutonInscrire">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inscrire un nouvel &#xe9;tudiant"/>
+        <Property name="text" type="java.lang.String" value="Inscrire un nouveau prof"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boutonInscrireActionPerformed"/>

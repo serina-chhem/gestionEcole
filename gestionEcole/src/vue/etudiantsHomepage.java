@@ -6,6 +6,9 @@
 
 package vue;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author serina
@@ -72,8 +75,14 @@ public class etudiantsHomepage extends javax.swing.JFrame {
     private void boutonListeEtudiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonListeEtudiantActionPerformed
 
         // TODO add your handling code here:
-        listeEleve liste = new listeEleve();
-        liste.setVisible(true);
+        listeEleve liste;
+        try {
+            liste = new listeEleve();
+             liste.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(etudiantsHomepage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }//GEN-LAST:event_boutonListeEtudiantActionPerformed
 
     private void boutonInscrireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonInscrireActionPerformed

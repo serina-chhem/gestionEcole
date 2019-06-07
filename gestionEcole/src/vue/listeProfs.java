@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modele.Personne;
 
@@ -23,7 +24,7 @@ import modele.Personne;
  *
  * @author dePlanta
  */
-public class listeEleve extends javax.swing.JFrame {
+public class listeProfs extends javax.swing.JFrame {
     
     Statement stmt;
     Connection conn;
@@ -34,9 +35,9 @@ public class listeEleve extends javax.swing.JFrame {
     String passwordDatabase = "root";
 
     /** Creates new form ApresEleve */
-    public listeEleve() throws ClassNotFoundException {
+    public listeProfs() throws ClassNotFoundException {
         initComponents();
-        afficher_eleve();
+        afficher_profs();
     }
     
     public ArrayList<Personne> personneList() throws ClassNotFoundException{
@@ -53,7 +54,7 @@ public class listeEleve extends javax.swing.JFrame {
             // création d'un ordre SQL (statement)
             stmt = conn.createStatement();
             
-            rset = stmt.executeQuery("select * from personne where type = 1"  );
+            rset = stmt.executeQuery("select * from personne where type = 2"  );
             
             while(rset.next())
             {
@@ -65,12 +66,12 @@ public class listeEleve extends javax.swing.JFrame {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(listeEleve.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listeProfs.class.getName()).log(Level.SEVERE, null, ex);
         }
         return personneList;
     }
     
-    public void afficher_eleve() throws ClassNotFoundException{
+    public void afficher_profs() throws ClassNotFoundException{
         ArrayList<Personne> list = personneList();
         DefaultTableModel model =  (DefaultTableModel)jTable1.getModel();
         Object[] row = new Object[3];
@@ -97,10 +98,11 @@ public class listeEleve extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        boutonSupprimer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Liste des Etudiants");
+        jLabel1.setText("Liste des Profs");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,31 +129,72 @@ public class listeEleve extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        boutonSupprimer.setText("Supprimer un prof");
+        boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonSupprimerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(140, 140, 140))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boutonSupprimer)
+                        .addGap(115, 115, 115))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(boutonSupprimer)
+                        .addGap(21, 21, 21))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model =  (DefaultTableModel)jTable1.getModel();
+        
+        try{
+              Class.forName("com.mysql.jdbc.Driver");
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+            conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+            stmt = conn.createStatement();
+            
+          
+        int selectedRowIndex = jTable1.getSelectedRow();
+        model.removeRow(selectedRowIndex);
+        
+        String cellule = jTable1.getModel().getValueAt(selectedRowIndex, 0).toString();
+        
+        
+        stmt.executeUpdate("delete from personne where id = " + cellule  );
+        JOptionPane.showMessageDialog(null, "Suppression réussie!");
+
+        
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_boutonSupprimerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,14 +213,18 @@ public class listeEleve extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listeEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listeProfs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listeEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listeProfs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listeEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listeProfs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listeEleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listeProfs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -187,15 +234,16 @@ public class listeEleve extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new listeEleve().setVisible(true);
+                    new listeProfs().setVisible(true);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(listeEleve.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(listeProfs.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boutonSupprimer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
