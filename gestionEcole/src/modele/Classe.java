@@ -15,11 +15,11 @@ public class Classe {
     private int anneeScolaire_id;
     private int niveau_id;
     
-    public Classe (int id, String nom, anneeScolaire anneeScolaire_id, Niveau niveau_id){
+    public Classe (int id, String nom, int anneeScolaire_id, int niveau_id){
         this.id = id;
         this.nom = nom;
-        this.anneeScolaire_id = anneeScolaire_id.getId();
-        this.niveau_id = niveau_id.getId();
+        this.anneeScolaire_id = anneeScolaire_id;
+        this.niveau_id = niveau_id;
     }
     
     public Classe(){
@@ -46,16 +46,16 @@ public class Classe {
       return anneeScolaire_id;
   }
   
-  public void setAnneeScolaireId(anneeScolaire anneeId){
-      this.anneeScolaire_id = anneeId.getId();
+  public void setAnneeScolaireId(int anneeId){
+      this.anneeScolaire_id = anneeId;
   }
   
   public int getNiveauId(){
       return niveau_id;
   }
   
-  public void setNiveauId(Niveau niveauId){
-      this.niveau_id = niveauId.getId();
+  public void setNiveauId(int niveauId){
+      this.niveau_id = niveauId;
   }
   
   
