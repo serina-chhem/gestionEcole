@@ -279,17 +279,32 @@ public class gestionEleve extends javax.swing.JFrame {
         int selectedRowIndex = listeEtudiants.getSelectedRow();
         model.removeRow(selectedRowIndex);
         
-   
-        String sql = "delete from personne where id = " + champsId.getText();//REQUETE MARCHE PAS car mauvaise vvaleur de cellule
+   //ALTER TABLE inscription add CONSTRAINT `personne_id` FOREIGN KEY (`personne_id`) REFERENCES `personne` (`id`);
+        String sql1 = "delete from inscription where personne_id = " + champsId.getText();
         
-        try{
-            pst = conn.prepareStatement(sql);
-            pst.execute();
-            
-        }catch(Exception e){
-             JOptionPane.showMessageDialog(null, e);
+         try{
+                    pst = conn.prepareStatement(sql1);
+                    pst.execute();
 
-        }
+                }catch(Exception e){
+                     JOptionPane.showMessageDialog(null, e);
+
+                }
+        
+        String sql = "delete from personne  where id = " + champsId.getText();//REQUETE MARCHE PAS car mauvaise vvaleur de cellule
+        
+                try{
+                    pst = conn.prepareStatement(sql);
+                    pst.execute();
+                    JOptionPane.showMessageDialog(null, " " + champsPrenom.getText()+ " a été supprimé de sa classe");
+
+                    inscriptionClasse iC = new inscriptionClasse();
+                    iC.setVisible(true);
+
+                }catch(Exception e){
+                     JOptionPane.showMessageDialog(null, " " + champsPrenom.getText()+ " ne peut pas être supprimé car il ne fait pas parti d'une classe" );
+
+                }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);

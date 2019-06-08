@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/AddEleve.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/gestionEleve.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/modele/Inscription.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/listeClasses.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/gestionProfs.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/modele/Classe.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/inscriptionClasse.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/AddEnseignant.java</file>
         </group>
