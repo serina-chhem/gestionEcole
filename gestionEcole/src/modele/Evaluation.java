@@ -22,6 +22,10 @@ public class Evaluation {
         this.detailBullId = d.getId();
     }
     
+    public Evaluation(){
+        
+    }
+    
     public int getId(){
         return id;
     }

@@ -34,7 +34,7 @@ public class gestionEleve extends javax.swing.JFrame {
     PreparedStatement pst;
     String nameDatabase = "ecole";
     String loginDatabase = "root";
-    String passwordDatabase = "";
+    String passwordDatabase = "root";
 
     /** Creates new form ApresEleve */
     public gestionEleve() throws ClassNotFoundException {
@@ -48,7 +48,7 @@ public class gestionEleve extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             
             // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
-            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             
             //création d'une connexion JDBC à la base
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
@@ -379,7 +379,9 @@ public class gestionEleve extends javax.swing.JFrame {
        int id = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+//        String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
 
@@ -391,6 +393,8 @@ public class gestionEleve extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(gestionEleve.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Cet eleve est deja inscrit dans une classe... ");
+
             Logger.getLogger(gestionEleve.class.getName()).log(Level.SEVERE, null, ex);
         }
         

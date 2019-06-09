@@ -118,8 +118,6 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
         jScrollPane1 = new javax.swing.JScrollPane();
         listeClasse = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        champsRecherche = new javax.swing.JTextField();
-        boutonSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,27 +138,14 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
 
         jLabel1.setText("SÉLECTIONNER LA CLASSE DANS LAQUELLE VOUS SOUHAITEZ INSCRIRE L'ÉTUDIANT");
 
-        boutonSearch.setText("Filtrer par niveau");
-        boutonSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonSearchActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(champsRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(boutonSearch))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(197, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(103, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -171,11 +156,7 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(champsRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(boutonSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -214,47 +195,12 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-              JOptionPane.showMessageDialog(null, "Cet eleve est deja inscrit dans une classe... ");
 
                 Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         
     }//GEN-LAST:event_listeClasseMouseClicked
-
-    private void boutonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSearchActionPerformed
-        // TODO add your handling code here:
-        
-       ArrayList<Classe> listeClasse = new ArrayList<>();
-
-        try{
-            
-        Class.forName("com.mysql.jdbc.Driver");
-        String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
-        conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
-        stmt = conn.createStatement();
-        rset = stmt.executeQuery("select * from classe where niveau_id = " + champsRecherche.getText());
-
-        while(rset.next()){
-            
-                Classe c = new Classe();
-                c.setId(rset.getInt("id"));
-                c.setAnneeScolaireId(rset.getInt("anneeScolaire_id"));
-                c.setNiveauId(rset.getInt("niveau_id"));
-                c.setNom(rset.getString("nom"));
-                listeClasse.add(c);
-                
-        }
-        
-        
-        
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_boutonSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,10 +244,8 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton boutonSearch;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JTextField champsRecherche;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listeClasse;

@@ -31,7 +31,7 @@
                   <Component id="boutonModifier" alignment="1" max="32767" attributes="0"/>
                   <Component id="boutonSupprimer" alignment="1" max="32767" attributes="0"/>
                   <Component id="boutonInscrire" max="32767" attributes="0"/>
-                  <Component id="boutonInscrireClasse" pref="186" max="32767" attributes="0"/>
+                  <Component id="boutonInscrireClasse" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">

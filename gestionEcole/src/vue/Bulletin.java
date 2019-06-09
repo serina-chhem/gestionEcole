@@ -31,7 +31,7 @@ public class Bulletin extends javax.swing.JFrame {
     PreparedStatement pst;
     String nameDatabase = "ecole";
     String loginDatabase = "root";
-    String passwordDatabase = "";
+    String passwordDatabase = "root";
     int pId;
     /**
      * Creates new form Bulletin

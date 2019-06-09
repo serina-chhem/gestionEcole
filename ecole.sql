@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jun 08, 2019 at 01:56 PM
+-- Generation Time: Jun 09, 2019 at 10:34 AM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -167,7 +167,13 @@ INSERT INTO `inscription` (`id`, `classe_id`, `personne_id`) VALUES
 (15, 9, 86),
 (17, 10, 76),
 (18, 12, 87),
-(19, 5, 88);
+(19, 5, 88),
+(21, 1, 89),
+(22, 1, 90),
+(23, 1, 100),
+(24, 8, 103),
+(25, 2, 92),
+(26, 2, 95);
 
 -- --------------------------------------------------------
 
@@ -226,7 +232,23 @@ INSERT INTO `personne` (`id`, `nom`, `prenom`, `type`) VALUES
 (85, 'Kendrick', 'Anna', 1),
 (86, ' Justin ', ' Balvin', 1),
 (87, 'tang', 'thomas', 1),
-(88, 'Scott', 'Kathryn', 1);
+(88, 'Scott', 'Kathryn', 1),
+(89, 'bizu', 'izzy', 1),
+(90, 'zouai', 'lolo', 1),
+(91, 'Park', 'Anderson', 1),
+(92, 'Park', 'Anderson', 1),
+(93, 'Martin', 'Benoit', 1),
+(94, 'Dubois', 'Tom', 1),
+(95, 'Moreau', 'Jacques', 1),
+(96, 'Laurent', 'Laura', 1),
+(97, 'Fourier', 'Jenny', 1),
+(98, 'Lamb', 'Bamby', 1),
+(99, 'Rousseau', 'Lena', 1),
+(100, 'Roux', 'Alice', 1),
+(101, 'Leroux', 'Celine', 1),
+(102, 'Martinez', 'Lola', 1),
+(103, 'Picard', 'Valentine', 1),
+(104, 'Arthur', 'Maelle', 1);
 
 -- --------------------------------------------------------
 
@@ -390,7 +412,7 @@ ALTER TABLE `evaluation`
 -- AUTO_INCREMENT for table `inscription`
 --
 ALTER TABLE `inscription`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `niveau`
@@ -402,7 +424,7 @@ ALTER TABLE `niveau`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `trimestre`
