@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jun 09, 2019 at 10:34 AM
+-- Generation Time: Jun 09, 2019 at 09:09 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -50,6 +50,21 @@ CREATE TABLE `bulletin` (
   `inscription_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `bulletin`
+--
+
+INSERT INTO `bulletin` (`id`, `moyenneG`, `appreciation`, `trimestre_id`, `inscription_id`) VALUES
+(1, 12.56, 'correct', 1, 1),
+(2, 11.5, 'Peu mieux faire', 2, 15),
+(3, 15, 'Très bien', 6, 17),
+(4, 9.99, 'Rattrapage', 5, 21),
+(5, 10.05, 'Duh', 2, 4),
+(6, 18.5, 'Excellent', 7, 4),
+(7, 12.35, 'Hmmm', 5, 21),
+(8, 13.4, 'Correct', 6, 22),
+(9, 14.5, 'Bien', 8, 25);
+
 -- --------------------------------------------------------
 
 --
@@ -95,6 +110,13 @@ CREATE TABLE `detailBulletin` (
   `enseignement_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `detailBulletin`
+--
+
+INSERT INTO `detailBulletin` (`id`, `moyenneG`, `appreciation`, `bulletin_id`, `enseignement_id`) VALUES
+(1, 12.56, 'plutot bon', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -131,6 +153,19 @@ CREATE TABLE `enseignement` (
   `personne_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `enseignement`
+--
+
+INSERT INTO `enseignement` (`id`, `classe_id`, `discipline_id`, `personne_id`) VALUES
+(1, 1, 3, 74),
+(4, 3, 2, 65),
+(5, 2, 6, 64),
+(6, 7, 4, 71),
+(7, 1, 1, 107),
+(8, 1, 2, 77),
+(9, 12, 4, 109);
+
 -- --------------------------------------------------------
 
 --
@@ -143,6 +178,14 @@ CREATE TABLE `evaluation` (
   `appreciation` varchar(255) NOT NULL,
   `detailBulletin_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `evaluation`
+--
+
+INSERT INTO `evaluation` (`id`, `note`, `appreciation`, `detailBulletin_id`) VALUES
+(7, 12, 'travail correct', 1),
+(8, 6, 'insuffisant', 1);
 
 -- --------------------------------------------------------
 
@@ -173,7 +216,11 @@ INSERT INTO `inscription` (`id`, `classe_id`, `personne_id`) VALUES
 (23, 1, 100),
 (24, 8, 103),
 (25, 2, 92),
-(26, 2, 95);
+(26, 2, 95),
+(27, 1, 94),
+(28, 1, 104),
+(29, 1, 74),
+(30, 10, 102);
 
 -- --------------------------------------------------------
 
@@ -236,7 +283,7 @@ INSERT INTO `personne` (`id`, `nom`, `prenom`, `type`) VALUES
 (89, 'bizu', 'izzy', 1),
 (90, 'zouai', 'lolo', 1),
 (91, 'Park', 'Anderson', 1),
-(92, 'Park', 'Anderson', 1),
+(92, ' Jolie ', ' Angelina', 1),
 (93, 'Martin', 'Benoit', 1),
 (94, 'Dubois', 'Tom', 1),
 (95, 'Moreau', 'Jacques', 1),
@@ -248,7 +295,12 @@ INSERT INTO `personne` (`id`, `nom`, `prenom`, `type`) VALUES
 (101, 'Leroux', 'Celine', 1),
 (102, 'Martinez', 'Lola', 1),
 (103, 'Picard', 'Valentine', 1),
-(104, 'Arthur', 'Maelle', 1);
+(104, 'Arthur', 'Maelle', 1),
+(105, 'belo', 'dimitri', 2),
+(106, 'duper', 'tristan', 2),
+(107, 'paris', 'alexandra', 2),
+(108, ' booba ', ' shawna', 2),
+(109, 'super', 'woman', 2);
 
 -- --------------------------------------------------------
 
@@ -376,7 +428,7 @@ ALTER TABLE `anneeScolaire`
 -- AUTO_INCREMENT for table `bulletin`
 --
 ALTER TABLE `bulletin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `classe`
@@ -388,7 +440,7 @@ ALTER TABLE `classe`
 -- AUTO_INCREMENT for table `detailBulletin`
 --
 ALTER TABLE `detailBulletin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `discipline`
@@ -400,19 +452,19 @@ ALTER TABLE `discipline`
 -- AUTO_INCREMENT for table `enseignement`
 --
 ALTER TABLE `enseignement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `inscription`
 --
 ALTER TABLE `inscription`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `niveau`
@@ -424,7 +476,7 @@ ALTER TABLE `niveau`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `trimestre`
