@@ -5,18 +5,18 @@
  */
 package vue;
 
-import controleur.*;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author dePlanta
+ * @author serina
  */
 public class connexionAdmin extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame1
+     * Creates new form connexionAdmin
      */
     public connexionAdmin() {
         initComponents();
@@ -31,28 +31,30 @@ public class connexionAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        boutonDiscipline = new javax.swing.JButton();
-        boutonEnseignants = new javax.swing.JButton();
         boutonEleves = new javax.swing.JButton();
+        boutonProfesseur = new javax.swing.JButton();
+        boutonDiscipline = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Que voulez-vous gérer ?");
-
-        boutonDiscipline.setText("Discipline");
-
-        boutonEnseignants.setText("Enseignants");
-        boutonEnseignants.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonEnseignantsActionPerformed(evt);
-            }
-        });
-
-        boutonEleves.setText("Élèves");
+        boutonEleves.setText("Eleves");
         boutonEleves.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonElevesActionPerformed(evt);
+            }
+        });
+
+        boutonProfesseur.setText("Professeurs");
+        boutonProfesseur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonProfesseurActionPerformed(evt);
+            }
+        });
+
+        boutonDiscipline.setText("Discipline");
+        boutonDiscipline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonDisciplineActionPerformed(evt);
             }
         });
 
@@ -60,27 +62,24 @@ public class connexionAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(boutonEnseignants, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(boutonDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(boutonEleves, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(113, Short.MAX_VALUE))
+                    .addComponent(boutonDiscipline)
+                    .addComponent(boutonProfesseur)
+                    .addComponent(boutonEleves))
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(boutonEleves, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(boutonEnseignants, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(boutonDiscipline, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(77, 77, 77)
+                .addComponent(boutonEleves)
+                .addGap(38, 38, 38)
+                .addComponent(boutonProfesseur)
+                .addGap(38, 38, 38)
+                .addComponent(boutonDiscipline)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,6 +87,7 @@ public class connexionAdmin extends javax.swing.JFrame {
 
     private void boutonElevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonElevesActionPerformed
         // TODO add your handling code here:
+        
         gestionEleve el;
         try {
             el = new gestionEleve();
@@ -95,20 +95,32 @@ public class connexionAdmin extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
     }//GEN-LAST:event_boutonElevesActionPerformed
 
-    private void boutonEnseignantsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonEnseignantsActionPerformed
-        // TODO add your handling code here:
-       
-        try {
+    private void boutonProfesseurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonProfesseurActionPerformed
+        // TODO add your handling code here
+         try {
             gestionProfs prof = new gestionProfs();
             prof.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_boutonProfesseurActionPerformed
+
+    private void boutonDisciplineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonDisciplineActionPerformed
+        // TODO add your handling code here:
         
-    }//GEN-LAST:event_boutonEnseignantsActionPerformed
+        try {
+            listeDiscipline li = new listeDiscipline(); 
+            li.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(connexionAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }//GEN-LAST:event_boutonDisciplineActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,9 +148,6 @@ public class connexionAdmin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(connexionAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -151,7 +160,6 @@ public class connexionAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boutonDiscipline;
     private javax.swing.JButton boutonEleves;
-    private javax.swing.JButton boutonEnseignants;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton boutonProfesseur;
     // End of variables declaration//GEN-END:variables
 }

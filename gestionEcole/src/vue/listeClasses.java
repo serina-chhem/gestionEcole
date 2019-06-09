@@ -174,7 +174,7 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
             
-            ArrayList<Classe> liste = listeClasse();
+            //ArrayList<Classe> liste = listeClasse();
             int selectedRowIndex = listeClasse.getSelectedRow();
             String cell =  listeClasse.getModel().getValueAt(selectedRowIndex, 0).toString();
             
@@ -193,6 +193,8 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
 
 
             } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Eleve deja inscrit dans une classe");
+
                 Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Eleve deja inscrit dans une classe");

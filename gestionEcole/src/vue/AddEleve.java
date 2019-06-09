@@ -5,7 +5,6 @@
  */
 package vue;
 
-import controleur.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modele.Personne;
 
@@ -169,8 +169,7 @@ public class AddEleve extends javax.swing.JFrame {
         liste.setVisible(true);
   
         JOptionPane.showMessageDialog(null, "Inscription réussie !!");
-        gestionEleve g = new gestionEleve();
-        g.setVisible(true);
+      
         conn.close();
         
  

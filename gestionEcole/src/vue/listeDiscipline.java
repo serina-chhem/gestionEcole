@@ -32,6 +32,8 @@ public class listeDiscipline extends javax.swing.JFrame {
     String nameDatabase = "ecole";
     String loginDatabase = "root";
     String passwordDatabase = "root";
+    int discId, persId;
+    int classeId ;
 
     /**
      * Creates new form listeDiscipline
@@ -39,6 +41,64 @@ public class listeDiscipline extends javax.swing.JFrame {
     public listeDiscipline() throws ClassNotFoundException, SQLException {
         initComponents();
         afficherDisciplines();
+    }
+    
+    public int getClasseId(){
+        return classeId;
+    }
+    public void setClasseId(int classeId){
+        this.classeId = classeId;
+    }
+     public int getPersId(){
+        return persId;
+    }
+    public void setPersId(int pId){
+        this.persId = pId;
+    }
+     public int getDiscId(){
+        return discId;
+    }
+    public void setDiscId(int discId){
+        this.discId = discId;
+    }
+    
+    public listeDiscipline(int cId, int dId, int pId) throws ClassNotFoundException, SQLException{
+        initComponents();
+        assignerMatiere(cId, dId, pId);
+
+        afficherDisciplines();
+        this.classeId = cId;
+        this.persId = pId;
+        this.discId = dId;
+    }
+    
+    
+    
+    public void assignerMatiere(int cId, int dId, int pId) throws ClassNotFoundException{
+        
+        
+        try{
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+            conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+            stmt = conn.createStatement();
+             String sql = "INSERT INTO enseignement(classe_id, discipline_id, personne_id ) VALUES ('" + cId + "',' " + dId + "',' " + pId + "')" ;
+       
+
+            pst = conn.prepareStatement(sql);
+//            pst.setInt(1, cId);
+//            pst.setInt(2, dId);
+//            pst.setInt(3, pId);
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "DONE");
+
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
     }
     
     public ArrayList<Discipline> listeDiscipline() throws ClassNotFoundException, SQLException{
@@ -51,11 +111,13 @@ public class listeDiscipline extends javax.swing.JFrame {
             String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
-            rset = stmt.executeQuery("select * from discipline");
+            rset = stmt.executeQuery("select e.id as disciplineID , e.classe_id as classeId, d.nom as matiere, p.nom as enseignant from enseignement e inner join discipline d on e.discipline_id = d.id inner join personne p on e.personne_id = p.id");
             while(rset.next()){
                 Discipline d = new Discipline();
-                d.setId(rset.getInt("id"));
-                d.setNom(rset.getString("nom"));
+                d.setId(rset.getInt("disciplineID"));
+                d.setClasseId(rset.getInt("classeId"));
+                d.setNom(rset.getString("matiere"));
+                d.setNomE(rset.getString("enseignant"));
                 listeDiscipline.add(d);
             }
             
@@ -72,11 +134,15 @@ public class listeDiscipline extends javax.swing.JFrame {
         
         ArrayList<Discipline> liste = listeDiscipline();
         DefaultTableModel model =  (DefaultTableModel)listeDisc.getModel();
-        Object[] row = new Object[3];
+        Object[] row = new Object[4];
         for(int i =0;i<liste.size();i++)
         {
             row[0]=liste.get(i).getId();
-            row[1]=liste.get(i).getNom();
+            row[1]=liste.get(i).getClasseId();
+           
+            row[2]=liste.get(i).getNom();
+            row[3]=liste.get(i).getNomE();
+
             model.addRow(row);
             
         }
@@ -94,6 +160,8 @@ public class listeDiscipline extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         listeDisc = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,7 +170,7 @@ public class listeDiscipline extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Matière"
+                "Id", "Classe ID", "Matière", "Enseignant"
             }
         ));
         listeDisc.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,21 +180,43 @@ public class listeDiscipline extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listeDisc);
 
+        jLabel1.setText("Liste des enseignements");
+
+        jButton1.setText("Retour vers la liste des professeurs");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138))
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jButton1)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -137,6 +227,22 @@ public class listeDiscipline extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_listeDiscMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            gestionProfs g;
+            g = new gestionProfs();
+            g.setVisible(true);
+            g.setSize(1000,700);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(listeDiscipline.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(listeDiscipline.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +286,8 @@ public class listeDiscipline extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listeDisc;
     // End of variables declaration//GEN-END:variables

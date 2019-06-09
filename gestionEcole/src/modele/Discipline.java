@@ -12,6 +12,16 @@ package modele;
 public class Discipline {
     private int id = 0;
     private String nom = "";
+    private String nomEnseignant = "";
+    private int classeId;
+    
+    public int getClasseId(){
+        return classeId;
+    }
+    public void setClasseId(int classeId){
+        this.classeId = classeId;
+    }
+    
     public Discipline(){
         
     }
@@ -19,6 +29,15 @@ public class Discipline {
         this.id = id;
         this.nom = nom;
     }
+  
+    public String getNomE(){
+        return nomEnseignant;
+    }
+    
+    public void setNomE(String nomE){
+        this.nomEnseignant = nomE;
+    }
+    
     public int getId(){
         return id;
     }

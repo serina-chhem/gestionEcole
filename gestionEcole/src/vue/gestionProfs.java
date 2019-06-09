@@ -32,11 +32,14 @@ public class gestionProfs extends javax.swing.JFrame {
     String nameDatabase = "ecole";
     String loginDatabase = "root";
     String passwordDatabase = "root";
+    int pId = 0;
 
     /** Creates new form ApresEleve */
-    public gestionProfs() throws ClassNotFoundException {
+    public gestionProfs() throws ClassNotFoundException, SQLException {
         initComponents();
         afficher_profs();
+        remplirComboBoxMat();
+        remplirComboBoxClasse();
     }
     
     public ArrayList<Personne> personneList() throws ClassNotFoundException{
@@ -109,6 +112,9 @@ public class gestionProfs extends javax.swing.JFrame {
         champsRecherche = new javax.swing.JTextField();
         boutonSearch = new javax.swing.JButton();
         boutonRetour = new javax.swing.JButton();
+        boutonInscrireDiscipline = new javax.swing.JButton();
+        boxMatiere = new javax.swing.JComboBox<>();
+        boxClasseId = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +209,22 @@ public class gestionProfs extends javax.swing.JFrame {
             }
         });
 
+        boutonInscrireDiscipline.setText("Assigner ce prof à une discipline");
+        boutonInscrireDiscipline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonInscrireDisciplineActionPerformed(evt);
+            }
+        });
+
+        boxMatiere.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxMatiere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxMatiereActionPerformed(evt);
+            }
+        });
+
+        boxClasseId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -210,31 +232,6 @@ public class gestionProfs extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(champsId, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(champsNom, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                                        .addComponent(champsPrenom)))
-                                .addGap(85, 85, 85))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(boutonSupprimer, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(boutonInscrire, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(23, 23, 23))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(boutonModifier)
-                                        .addGap(57, 57, 57)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(boutonRetour)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +244,40 @@ public class gestionProfs extends javax.swing.JFrame {
                                 .addComponent(champsRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(boutonSearch)
-                                .addGap(46, 46, 46))))))
+                                .addGap(46, 46, 46))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(boxMatiere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxClasseId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(boutonInscrireDiscipline)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(boutonSupprimer)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel2)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jLabel3))
+                                            .addGap(54, 54, 54)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(champsId, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(96, 96, 96))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(boutonInscrire)
+                                            .addGap(107, 107, 107))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(boutonModifier)
+                                            .addGap(98, 98, 98)))))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,13 +289,13 @@ public class gestionProfs extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(boutonRetour))
                         .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(champsRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boutonSearch))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(champsId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -273,16 +303,22 @@ public class gestionProfs extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
+                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
+                            .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(boxClasseId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boxMatiere, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boutonInscrireDiscipline))
+                        .addGap(34, 34, 34)
                         .addComponent(boutonInscrire)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(boutonModifier)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(boutonSupprimer)))
+                        .addGap(18, 18, 18)
+                        .addComponent(boutonSupprimer)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(29, 29, 29))
         );
 
@@ -421,6 +457,92 @@ public class gestionProfs extends javax.swing.JFrame {
         c.setVisible(true);
     }//GEN-LAST:event_boutonRetourActionPerformed
 
+    private void boutonInscrireDisciplineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonInscrireDisciplineActionPerformed
+    
+        
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+            conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+            stmt = conn.createStatement();
+            
+          
+            rset = stmt.executeQuery("select * from personne where type = 2  and  id = " + champsId.getText() );
+            
+           // pst.setString(1, champsId.getText());
+            
+            while(rset.next()){
+                
+                
+                listeDiscipline l = new listeDiscipline(boxClasseId.getSelectedIndex()+1, boxMatiere.getSelectedIndex()+1, rset.getInt("id"));
+                l.setVisible(true); 
+                
+            }
+            
+
+            
+            
+                
+                          
+            
+            
+            
+            
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+        
+    }//GEN-LAST:event_boutonInscrireDisciplineActionPerformed
+
+    private void boxMatiereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxMatiereActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxMatiereActionPerformed
+
+     private void remplirComboBoxClasse() throws ClassNotFoundException, SQLException{
+        try{
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+            conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+            stmt = conn.createStatement();
+            pst = conn.prepareStatement("SELECT c.id as classeId, c.nom as td, n.nom as niveau FROM classe c inner join niveau n on n.id = c.niveau_id");
+            rset = pst.executeQuery();
+            boxClasseId.removeAllItems();
+
+            while(rset.next()){
+                boxClasseId.addItem(rset.getInt("classeId") + " - " + rset.getString("td") + " - "+rset.getString("niveau"));
+            }
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void remplirComboBoxMat() throws ClassNotFoundException, SQLException{
+        try{
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+            conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+            stmt = conn.createStatement();
+            pst = conn.prepareStatement("select nom from discipline");
+            rset = pst.executeQuery();
+            boxMatiere.removeAllItems();
+
+            while(rset.next()){
+                boxMatiere.addItem(rset.getString("nom"));
+            }
+        }
+        catch(SQLException e){
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -467,8 +589,13 @@ public class gestionProfs extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new gestionProfs().setVisible(true);
+                    gestionProfs g = new gestionProfs();
+                    g.setVisible(true);
+                    g.setSize(1000,700);
+                    
                 } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
                     Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -477,10 +604,13 @@ public class gestionProfs extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boutonInscrire;
+    private javax.swing.JButton boutonInscrireDiscipline;
     private javax.swing.JButton boutonModifier;
     private javax.swing.JButton boutonRetour;
     private javax.swing.JButton boutonSearch;
     private javax.swing.JButton boutonSupprimer;
+    private javax.swing.JComboBox<String> boxClasseId;
+    private javax.swing.JComboBox<String> boxMatiere;
     private javax.swing.JTextField champsId;
     private javax.swing.JTextField champsNom;
     private javax.swing.JTextField champsPrenom;
