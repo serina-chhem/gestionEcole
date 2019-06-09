@@ -290,7 +290,7 @@ public class gestionEleve extends javax.swing.JFrame {
         
         try{
               Class.forName("com.mysql.jdbc.Driver");
-//            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+//            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
 
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
@@ -347,7 +347,7 @@ public class gestionEleve extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
 
-            //String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+            //String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
 
@@ -395,7 +395,7 @@ public class gestionEleve extends javax.swing.JFrame {
        int id = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-//        String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+//        String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
 
             String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
@@ -423,7 +423,7 @@ public class gestionEleve extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
                         String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
 
-            //String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+            //String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
 
