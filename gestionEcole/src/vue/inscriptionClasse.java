@@ -194,7 +194,7 @@ public class inscriptionClasse extends javax.swing.JFrame {
             plot.setRangeGridlinePaint(Color.black);
             ChartFrame chartFrm = new ChartFrame("Nb d'étudiants dans une classe", graph, true);
             chartFrm.setVisible(true);
-            chartFrm.setSize(500,500);
+            chartFrm.setSize(1000,800);
             
 
             

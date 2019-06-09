@@ -195,7 +195,7 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-
+                JOptionPane.showMessageDialog(null, "Eleve deja inscrit dans une classe");
                 Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             }
 

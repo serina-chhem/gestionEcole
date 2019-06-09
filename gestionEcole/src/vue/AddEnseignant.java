@@ -168,6 +168,8 @@ public class AddEnseignant extends javax.swing.JFrame {
         liste.setVisible(true);
   
         JOptionPane.showMessageDialog(null, "Inscription réussie !!");
+        gestionProfs g = new gestionProfs();
+        g.setVisible(true);
         conn.close();
         
  

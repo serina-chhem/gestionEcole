@@ -169,6 +169,8 @@ public class AddEleve extends javax.swing.JFrame {
         liste.setVisible(true);
   
         JOptionPane.showMessageDialog(null, "Inscription réussie !!");
+        gestionEleve g = new gestionEleve();
+        g.setVisible(true);
         conn.close();
         
  

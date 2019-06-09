@@ -111,6 +111,7 @@ public class gestionEleve extends javax.swing.JFrame {
         champsId = new javax.swing.JTextField();
         boutonInscrireClasse = new javax.swing.JButton();
         voirBulletin = new javax.swing.JButton();
+        boutonRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,6 +200,13 @@ public class gestionEleve extends javax.swing.JFrame {
             }
         });
 
+        boutonRetour.setText("Retour");
+        boutonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonRetourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,7 +219,7 @@ public class gestionEleve extends javax.swing.JFrame {
                     .addComponent(boutonModifier, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(boutonSupprimer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(boutonInscrire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(boutonInscrireClasse, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(boutonInscrireClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -230,7 +238,9 @@ public class gestionEleve extends javax.swing.JFrame {
                     .addComponent(voirBulletin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(112, 112, 112))
             .addGroup(layout.createSequentialGroup()
-                .addGap(331, 331, 331)
+                .addGap(17, 17, 17)
+                .addComponent(boutonRetour)
+                .addGap(217, 217, 217)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -238,7 +248,9 @@ public class gestionEleve extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(boutonRetour))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -256,7 +268,7 @@ public class gestionEleve extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                         .addComponent(voirBulletin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(boutonInscrireClasse)
@@ -278,7 +290,9 @@ public class gestionEleve extends javax.swing.JFrame {
         
         try{
               Class.forName("com.mysql.jdbc.Driver");
-            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+//            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
             
@@ -331,7 +345,9 @@ public class gestionEleve extends javax.swing.JFrame {
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+
+            //String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
 
@@ -405,7 +421,9 @@ public class gestionEleve extends javax.swing.JFrame {
      int id = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+                        String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+
+            //String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
 
@@ -421,6 +439,12 @@ public class gestionEleve extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_voirBulletinActionPerformed
+
+    private void boutonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonRetourActionPerformed
+        // TODO add your handling code here:
+        connexionAdmin c = new connexionAdmin();
+        c.setVisible(true);
+    }//GEN-LAST:event_boutonRetourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,6 +496,7 @@ public class gestionEleve extends javax.swing.JFrame {
     private javax.swing.JButton boutonInscrire;
     private javax.swing.JButton boutonInscrireClasse;
     private javax.swing.JButton boutonModifier;
+    private javax.swing.JButton boutonRetour;
     private javax.swing.JButton boutonSupprimer;
     private javax.swing.JTextField champsId;
     private javax.swing.JTextField champsNom;
