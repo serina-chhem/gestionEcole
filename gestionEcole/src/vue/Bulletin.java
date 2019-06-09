@@ -12,11 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modele.Classe;
-import modele.Evaluation;
-import modele.Personne;
+import modele.affichagebulletin;
 
 /**
  *
@@ -36,37 +36,42 @@ public class Bulletin extends javax.swing.JFrame {
     /**
      * Creates new form Bulletin
      */
-    public Bulletin() {
+    public Bulletin() throws ClassNotFoundException, SQLException {
         initComponents();
+        afficher_note();
     }
-    public Bulletin(int pId) {
+    public Bulletin(int pId) throws ClassNotFoundException, SQLException {
         initComponents();
         this.pId = pId;
+        afficher_note();
+        afficher_nom();
+
     }
     
       public int getId(){
         return pId;
     }
       
-        public ArrayList<Evaluation> listenote() throws ClassNotFoundException, SQLException{
+        public ArrayList<affichagebulletin> listenote() throws ClassNotFoundException, SQLException{
         
-        ArrayList<Evaluation> listenote = new ArrayList<>();
+        ArrayList<affichagebulletin> listenote = new ArrayList<>();
         
         try{
             
             Class.forName("com.mysql.jdbc.Driver");
-            String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
-            rset = stmt.executeQuery("SELECT e.note, e.appreciation, e.detailBulletin_id as id_bulletin, d.moyenneG, d.enseignement_id, en.discipline_id, en.personne_id,en.personne_id,n.nom, p.id, p.nom, p.prenom FROM evaluation e inner join detailbulletin d on e.detailBulletin_id = d.id left join enseignement en on d.enseignement_id = en.id INNER JOIN discipline n on en.discipline_id = n.id INNER join personne p on en.personne_id = " + pId);
+            rset = stmt.executeQuery("SELECT e.note, e.appreciation, d.moyenneG, n.nom, b.trimestre_id FROM evaluation e inner join detailbulletin d on e.detailBulletin_id = d.id inner join bulletin b on b.id=d.bulletin_id inner join inscription i on i.id = b.inscription_id inner join enseignement en on d.enseignement_id = en.id INNER JOIN discipline n on en.discipline_id = n.id INNER join personne p on " + pId + " = p.id");
             while(rset.next()){
-                Evaluation c = new Evaluation();
-                c.setId(rset.getInt("detailBulletin_id"));
+                affichagebulletin c = new affichagebulletin();
+                c.setNote(rset.getInt("note"));
                 System.out.println(c.getId());
-                c.setNote(rset.getFloat("note"));
-                System.out.println(c.getNote());
-
                 c.setAppre(rset.getString("appreciation"));
+                System.out.println(c.getNote());
+                c.setModule(rset.getString("nom"));
+                c.setMoyenne(rset.getFloat("moyenneG"));
+                c.setTrimestre(rset.getInt("trimestre_id"));
                 listenote.add(c);
             }
             
@@ -80,19 +85,40 @@ public class Bulletin extends javax.swing.JFrame {
     }
         
          public void afficher_note() throws ClassNotFoundException, SQLException{
-        ArrayList<Evaluation> list = listenote();
+        ArrayList<affichagebulletin> list = listenote();
         DefaultTableModel model =  (DefaultTableModel)Listenote.getModel();
-        Object[] row = new Object[3];
+        Object[] row = new Object[5];
         for(int i =0;i<list.size();i++)
         {
-            row[0]=list.get(i).getId();
+            row[0]=list.get(i).getModule();
             row[1]=list.get(i).getNote();
-            row[2]=list.get(i).getAppre();
+            row[2]=list.get(i).getMoyenne();
+            row[3]=list.get(i).getAppre();
+            row[4]=list.get(i).getTrimestre();
+
             model.addRow(row);
             
         }
     }
-    
+       public void afficher_nom() throws ClassNotFoundException, SQLException{
+       try{
+            String nomprenom;
+            Class.forName("com.mysql.jdbc.Driver");
+            String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+            conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery("SELECT nom, prenom FROM personne WHERE id = " + pId);
+            while(rset.next()){
+                this.champsNom.setText(  String.valueOf( rset.getString("nom")) + " " + String.valueOf( rset.getString("prenom")));
+            }
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+       
+    }
+           
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,6 +132,7 @@ public class Bulletin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Listenote = new javax.swing.JTable();
         label1 = new java.awt.Label();
+        champsNom = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,14 +141,14 @@ public class Bulletin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Module", "Note Eleve", "Moyenne", "Appreciation"
+                "Module", "Note Eleve", "Moyenne", "Appreciation", "Trimestre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -136,7 +163,15 @@ public class Bulletin extends javax.swing.JFrame {
 
         label1.setAlignment(java.awt.Label.CENTER);
         label1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        label1.setText("Bulletin");
+        label1.setText("Bulletin de ");
+
+        champsNom.setEditable(false);
+        champsNom.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        champsNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                champsNomActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,19 +179,22 @@ public class Bulletin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 162, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(champsNom, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(champsNom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -164,6 +202,11 @@ public class Bulletin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void champsNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_champsNomActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_champsNomActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,13 +238,20 @@ public class Bulletin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Bulletin().setVisible(true);
+                try {
+                    new Bulletin().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Bulletin.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Bulletin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Listenote;
+    private javax.swing.JTextField champsNom;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
