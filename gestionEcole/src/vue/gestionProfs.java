@@ -23,7 +23,7 @@ import modele.Personne;
  *
  * @author dePlanta
  */
-public class gestionProfs extends javax.swing.JFrame {
+public final class gestionProfs extends javax.swing.JFrame {
     
     Statement stmt;
     Connection conn;
@@ -34,7 +34,9 @@ public class gestionProfs extends javax.swing.JFrame {
     String passwordDatabase = "root";
     int pId = 0;
 
-    /** Creates new form ApresEleve */
+    /** Creates new form ApresEleve
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException */
     public gestionProfs() throws ClassNotFoundException, SQLException {
         initComponents();
         afficher_profs();
@@ -202,6 +204,7 @@ public class gestionProfs extends javax.swing.JFrame {
             }
         });
 
+        boutonRetour.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/retour.png"))); // NOI18N
         boutonRetour.setText("Retour");
         boutonRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,7 +292,7 @@ public class gestionProfs extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(boutonRetour))
                         .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -346,11 +349,11 @@ public class gestionProfs extends javax.swing.JFrame {
             pst = conn.prepareStatement(sql);
             pst.execute();
             
-        }catch(Exception e){
+        }catch(SQLException e){
             
         }
         }
-        catch(Exception e){
+        catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_boutonSupprimerActionPerformed
@@ -383,7 +386,7 @@ public class gestionProfs extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex);
         } 
-        catch(Exception e){
+        catch(SQLException e){
              JOptionPane.showMessageDialog(null, e);
 
         }
@@ -490,9 +493,7 @@ public class gestionProfs extends javax.swing.JFrame {
             
             
             
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -587,15 +588,14 @@ public class gestionProfs extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     gestionProfs g = new gestionProfs();
                     g.setVisible(true);
                     g.setSize(1000,700);
                     
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
+                } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(gestionProfs.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

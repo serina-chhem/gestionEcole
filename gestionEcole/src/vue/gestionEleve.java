@@ -7,6 +7,7 @@
 package vue;
 
 import controleur.*;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ import modele.Personne;
  *
  * @author dePlanta
  */
-public class gestionEleve extends javax.swing.JFrame {
+public final class gestionEleve extends javax.swing.JFrame {
     
     Statement stmt;
     Connection conn;
@@ -36,7 +37,8 @@ public class gestionEleve extends javax.swing.JFrame {
     String loginDatabase = "root";
     String passwordDatabase = "root";
 
-    /** Creates new form ApresEleve */
+    /** Creates new form ApresEleve
+     * @throws java.lang.ClassNotFoundException */
     public gestionEleve() throws ClassNotFoundException {
         initComponents();
         afficher_eleve();
@@ -113,7 +115,7 @@ public class gestionEleve extends javax.swing.JFrame {
         voirBulletin = new javax.swing.JButton();
         boutonRetour = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("LISTE DES ÉTUDIANTS");
 
@@ -200,6 +202,7 @@ public class gestionEleve extends javax.swing.JFrame {
             }
         });
 
+        boutonRetour.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/retour.png"))); // NOI18N
         boutonRetour.setText("Retour");
         boutonRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +257,7 @@ public class gestionEleve extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -268,7 +271,7 @@ public class gestionEleve extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(champsPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(voirBulletin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(boutonInscrireClasse)
@@ -307,7 +310,7 @@ public class gestionEleve extends javax.swing.JFrame {
                     pst = conn.prepareStatement(sql1);
                     pst.execute();
 
-                }catch(Exception e){
+                }catch(SQLException e){
                      JOptionPane.showMessageDialog(null, e);
 
                 }
@@ -322,12 +325,12 @@ public class gestionEleve extends javax.swing.JFrame {
                     inscriptionClasse iC = new inscriptionClasse();
                     iC.setVisible(true);
 
-                }catch(Exception e){
+                }catch(HeadlessException | ClassNotFoundException | SQLException e){
                      JOptionPane.showMessageDialog(null, " " + champsPrenom.getText()+ " ne peut pas être supprimé car il ne fait pas parti d'une classe" );
 
                 }
         }
-        catch(Exception e){
+        catch(HeadlessException | ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_boutonSupprimerActionPerformed
@@ -359,7 +362,7 @@ public class gestionEleve extends javax.swing.JFrame {
             liste.setVisible(true);
         
                
-        } catch(Exception e){
+        } catch(ClassNotFoundException | SQLException e){
               JOptionPane.showMessageDialog(null, e);
 
         }
@@ -432,9 +435,7 @@ public class gestionEleve extends javax.swing.JFrame {
                 id = rset.getInt("id");
             }
             new Bulletin(id).setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(gestionEleve.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(gestionEleve.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -481,13 +482,11 @@ public class gestionEleve extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new gestionEleve().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(gestionEleve.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new gestionEleve().setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(gestionEleve.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

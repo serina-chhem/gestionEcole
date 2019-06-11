@@ -22,7 +22,9 @@ import modele.affichagebulletin;
  *
  * @author Hugo
  */
-public class Bulletin extends javax.swing.JFrame {
+
+//Classe Bulletin graphique
+public final class Bulletin extends javax.swing.JFrame {
 
     
     Statement stmt;
@@ -35,6 +37,8 @@ public class Bulletin extends javax.swing.JFrame {
     int pId;
     /**
      * Creates new form Bulletin
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public Bulletin() throws ClassNotFoundException, SQLException {
         initComponents();
@@ -52,6 +56,7 @@ public class Bulletin extends javax.swing.JFrame {
         return pId;
     }
       
+      //Affichage du bulletin dans graphique
         public ArrayList<affichagebulletin> listenote() throws ClassNotFoundException, SQLException{
         
         ArrayList<affichagebulletin> listenote = new ArrayList<>();
@@ -84,6 +89,7 @@ public class Bulletin extends javax.swing.JFrame {
         
     }
         
+        //Afficher les notes
          public void afficher_note() throws ClassNotFoundException, SQLException{
         ArrayList<affichagebulletin> list = listenote();
         DefaultTableModel model =  (DefaultTableModel)Listenote.getModel();
@@ -100,6 +106,8 @@ public class Bulletin extends javax.swing.JFrame {
             
         }
     }
+         
+         //Affichage du nom dans le bulletin
        public void afficher_nom() throws ClassNotFoundException, SQLException{
        try{
             String nomprenom;
@@ -134,7 +142,7 @@ public class Bulletin extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         champsNom = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Listenote.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -237,12 +245,11 @@ public class Bulletin extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new Bulletin().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Bulletin.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
+                } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(Bulletin.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

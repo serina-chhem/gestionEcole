@@ -22,7 +22,9 @@ import modele.Discipline;
  *
  * @author serina
  */
-public class listeDiscipline extends javax.swing.JFrame {
+
+//Classe Discipline 
+public final class listeDiscipline extends javax.swing.JFrame {
     
     
     Statement stmt;
@@ -37,12 +39,17 @@ public class listeDiscipline extends javax.swing.JFrame {
 
     /**
      * Creates new form listeDiscipline
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
+    
+    //Constructeur par defaut
     public listeDiscipline() throws ClassNotFoundException, SQLException {
         initComponents();
         afficherDisciplines();
     }
     
+    //Getters et setters
     public int getClasseId(){
         return classeId;
     }
@@ -62,6 +69,7 @@ public class listeDiscipline extends javax.swing.JFrame {
         this.discId = discId;
     }
     
+    //constructeur 
     public listeDiscipline(int cId, int dId, int pId) throws ClassNotFoundException, SQLException{
         initComponents();
         assignerMatiere(cId, dId, pId);
@@ -73,7 +81,7 @@ public class listeDiscipline extends javax.swing.JFrame {
     }
     
     
-    
+    //inscrire un prof a une matiere et une classe
     public void assignerMatiere(int cId, int dId, int pId) throws ClassNotFoundException{
         
         
@@ -101,6 +109,8 @@ public class listeDiscipline extends javax.swing.JFrame {
         }
     }
     
+    
+    //Liste des disciplines 
     public ArrayList<Discipline> listeDiscipline() throws ClassNotFoundException, SQLException{
         
         ArrayList<Discipline> listeDiscipline = new ArrayList<>();
@@ -111,7 +121,7 @@ public class listeDiscipline extends javax.swing.JFrame {
             String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
             stmt = conn.createStatement();
-            rset = stmt.executeQuery("select e.id as disciplineID , e.classe_id as classeId, d.nom as matiere, p.nom as enseignant from enseignement e inner join discipline d on e.discipline_id = d.id inner join personne p on e.personne_id = p.id");
+            rset = stmt.executeQuery("select e.id as disciplineID , e.classe_id as classeId, d.nom as matiere, p.nom as enseignant from enseignement e inner join discipline d on e.discipline_id = d.id inner join personne p on e.personne_id = p.id order by e.id ASC");
             while(rset.next()){
                 Discipline d = new Discipline();
                 d.setId(rset.getInt("disciplineID"));
@@ -163,7 +173,7 @@ public class listeDiscipline extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         listeDisc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -182,6 +192,7 @@ public class listeDiscipline extends javax.swing.JFrame {
 
         jLabel1.setText("Liste des enseignements");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/retour.png"))); // NOI18N
         jButton1.setText("Retour vers la liste des professeurs");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +226,7 @@ public class listeDiscipline extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -272,15 +283,11 @@ public class listeDiscipline extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new listeDiscipline().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(listeDiscipline.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(listeDiscipline.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new listeDiscipline().setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(listeDiscipline.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

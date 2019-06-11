@@ -21,9 +21,11 @@ import modele.Personne;
  *
  * @author dePlanta
  */
+
+//Classe Ajout d'eleves graphique
 public class AddEleve extends javax.swing.JFrame {
     
-    
+    //initialisation des paramètres de connexion
     Statement stmt;
     Connection conn;
     ResultSet rset;

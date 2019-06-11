@@ -29,7 +29,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author serina
  */
-public class inscriptionClasse extends javax.swing.JFrame {
+public final class inscriptionClasse extends javax.swing.JFrame {
     
     Statement stmt;
     Connection conn;
@@ -41,6 +41,7 @@ public class inscriptionClasse extends javax.swing.JFrame {
 
     /**
      * Creates new form inscriptionClasse
+     * @throws java.lang.ClassNotFoundException
      */
     public inscriptionClasse() throws ClassNotFoundException {
         initComponents();
@@ -118,7 +119,7 @@ public class inscriptionClasse extends javax.swing.JFrame {
         tabInscription = new javax.swing.JTable();
         boutonHistogramme = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tabInscription.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,6 +131,7 @@ public class inscriptionClasse extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabInscription);
 
+        boutonHistogramme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vue/histp.png"))); // NOI18N
         boutonHistogramme.setText("Afficher l'histogramme");
         boutonHistogramme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +160,7 @@ public class inscriptionClasse extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(boutonHistogramme)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -240,6 +242,7 @@ public class inscriptionClasse extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new inscriptionClasse().setVisible(true);

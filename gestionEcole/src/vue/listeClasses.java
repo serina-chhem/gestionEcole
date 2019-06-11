@@ -23,7 +23,7 @@ import modele.Discipline;
  *
  * @author serina
  */
-public class listeClasses extends javax.swing.JFrame {
+public final class listeClasses extends javax.swing.JFrame {
     
     Statement stmt;
     Connection conn;
@@ -37,6 +37,8 @@ public class listeClasses extends javax.swing.JFrame {
 
     /**
      * Creates new form listeClasses
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
     public listeClasses() throws ClassNotFoundException, SQLException {
         initComponents();
@@ -119,7 +121,7 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
         listeClasse = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         listeClasse.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -156,7 +158,7 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -192,12 +194,9 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
             ins.setVisible(true);
 
 
-            } catch (ClassNotFoundException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Eleve deja inscrit dans une classe");
 
-                Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Eleve deja inscrit dans une classe");
                 Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -232,15 +231,11 @@ public void afficherClasses() throws ClassNotFoundException, SQLException{
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new listeClasses().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new listeClasses().setVisible(true);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(listeClasses.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

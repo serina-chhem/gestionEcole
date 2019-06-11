@@ -21,6 +21,8 @@ import modele.Personne;
  *
  * @author dePlanta
  */
+//Classe Ajout d'enseignants graphique
+
 public class AddEnseignant extends javax.swing.JFrame {
     
     

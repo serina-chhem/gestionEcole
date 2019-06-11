@@ -13,6 +13,8 @@ import javax.swing.*;
  *
  * @author serina
  */
+
+//Classe Login de connexion
 public class LoginAdmin extends javax.swing.JFrame {
     
     Statement stmt;
@@ -49,7 +51,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         boutonValider = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         identifiant.setText("Identifiant :");
 

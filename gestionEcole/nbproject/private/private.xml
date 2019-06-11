@@ -7,11 +7,14 @@
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/gestionEleve.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/Bulletin.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/controleur/GestionEcole.java</file>
-            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/LoginAdmin.java</file>
-            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/listeClasses.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/connexionAdmin.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/modele/Evaluation.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/modele/Discipline.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/gestionProfs.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/listeClasses.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/modele/Enseignement.java</file>
+            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/listeDiscipline.java</file>
             <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/inscriptionClasse.java</file>
-            <file>file:/Users/serina/Documents/GitHub/gestionEcole/gestionEcole/src/vue/AddEnseignant.java</file>
         </group>
     </open-files>
 </project-private>
